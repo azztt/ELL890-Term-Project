@@ -196,13 +196,26 @@ else:
     core.quit()
 
 # 3) start stimulus window and present introduction screen
+
+# Prepare stimulus for emotion options presentation
+emOp = 'What do you think it was?\n'
+emOp += '(1) Neutral\n'
+emOp += '(2) Calm\n'
+emOp += '(3) Happy\n'
+emOp += '(4) Sad\n'
+emOp += '(5) Angry\n'
+emOp += '(6) Fearful\n'
+emOp += '(7) Disgust\n'
+emOp += '(8) Surprised\n'
+
 listenKey = 'space'
 introMessage = 'Hello {} ! You will be presented a series of very short video clips '.format(expData['Name of Subject'])
-introMessage += 'one by one.\nAfter each clip, you will be presented with a list of\n emotions with the corresponding numpad key. '
+introMessage += 'one by one.\nAfter each clip, you will be presented with a list of\n emotions with the corresponding numpad key like this:\n'
+introMessage += emOp
 introMessage += 'Your task is to identify the emotion presented in the clip you just saw before and press the numpad key number '
 introMessage += 'corresponding to the emotion you identified. After each clip, you will be allowed only {} seconds to identify the '.format(res_timeout/1000)
 introMessage += 'emotion in that particular clip. The clips may or may not have audio in them. So don\'t panic. It will take about '
-introMessage += '16 minutes to complete. We appreciate your patience.'
+introMessage += '20 minutes to complete. We appreciate your patience.'
 introMessage += 'Press "{}" whenever you are ready.\nGOOD LUCK!'.format(listenKey)
 
 # create the window component
@@ -225,16 +238,6 @@ expClock = core.Clock()
 ISI = core.StaticPeriod(screenHz=144, win=win, name='Inter Stimulus Interval')
 ONS = core.StaticPeriod(screenHz=144, win=win, name='Onset Time')
 
-# Prepare stimulus for emotion options presentation
-emOp = 'What do you think it was?\n'
-emOp += '(1) Neutral\n'
-emOp += '(2) Calm\n'
-emOp += '(3) Happy\n'
-emOp += '(4) Sad\n'
-emOp += '(5) Angry\n'
-emOp += '(6) Fearful\n'
-emOp += '(7) Disgust\n'
-emOp += '(8) Surprised\n'
 options = visual.TextStim(win, text=emOp, bold=True, color=-1, wrapWidth=2.0, height=0.07)
 
 # reset clock to start stimulus presentation
@@ -258,7 +261,7 @@ video_name_list.append(next_vid_name)
 kb = Keyboard(expClock)
 
 try:
-    for i in range(numVid):
+    for i in range(1):
         # load next random video
         next_vid_name = getNextVideo()
         emVid.loadMovie("{}/{}.mp4".format(dataFolder, next_vid_name))
